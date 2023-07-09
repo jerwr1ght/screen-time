@@ -15,6 +15,7 @@ using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView.SKCharts;
 using LiveChartsCore.VisualElements;
 using System.Collections.Generic;
+using Microsoft.Win32;
 
 namespace ScreenTime
 {
@@ -150,14 +151,11 @@ namespace ScreenTime
 
             series.Add(new ColumnSeries<ObservableValue>
             {
-                //Fill = new LinearGradientPaint(
-                //new[] { new SKColor(64, 92, 214), new SKColor(77, 129, 218),
-                //    new SKColor(91, 168, 225)}),
                 Fill = new SolidColorPaint(new SKColor(66, 165, 245)),
                 Name = "Загальний час",
                 Values = _dailyChartData,
                 YToolTipLabelFormatter =
-        (chartPoint) => $"{chartPoint.PrimaryValue} год",
+                (chartPoint) => $"{chartPoint.PrimaryValue} год",
 
             });
 
@@ -170,6 +168,12 @@ namespace ScreenTime
             //    .getOpenedProcess().ProcessName == "ScreenTime")
             //    return;
 
+            if (control.InvokeRequired)
+            {
+                HandleShowCase d = new HandleShowCase(UpdateShowCase);
+                Invoke(d, new Object[] { control });
+                return;
+            }
 
             var processes = _processHandler.GetProcessesByDate(_searchedDate);
 
@@ -270,6 +274,7 @@ namespace ScreenTime
 
         public Form1()
         {
+            SetOnWindowsStartup();
             isClosed = false;
             _dailyChartData = new ObservableCollection<ObservableValue>();
             _searchedDate = DateTime.Now.Date;
@@ -306,6 +311,22 @@ namespace ScreenTime
             _processHandler.StartCounting();
 
             UpdateAllShowCases();
+        }
+
+        public void SetOnWindowsStartup()
+        {
+            if (DataLoader.SaveFileExists()) return;
+
+            RegistryKey? reg = Registry.CurrentUser
+                .OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+                true);
+
+            if (reg != null && reg.GetValue("ScreenTime") == null)
+            {
+                reg.SetValue("ScreenTime", Application.ExecutablePath);
+            }
+
+
         }
 
         private void FlowLayoutPanel1_ControlAdded(object? sender, ControlEventArgs e)

@@ -10,11 +10,13 @@ namespace ScreenTime
     
     public class DataLoader
     {
-        public static string fileName = "saves.json";
+        public static string fileName = Path
+            .Combine(AppDomain.CurrentDomain.BaseDirectory, 
+            "saves.json");
 
         public static void Save(string data)
         {
-            File.WriteAllText(fileName, data);
+            File.WriteAllText(fileName, data); 
         }
 
         public static string? Load()
@@ -22,6 +24,8 @@ namespace ScreenTime
             return (File.Exists(fileName)) ? 
                 File.ReadAllText(fileName) : null;
         }
+
+        public static bool SaveFileExists() => File.Exists(fileName);
 
     }
 }
