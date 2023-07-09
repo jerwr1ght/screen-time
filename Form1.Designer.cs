@@ -77,19 +77,19 @@
             // 
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, closeToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(181, 70);
+            contextMenuStrip1.Size = new Size(123, 48);
             // 
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(180, 22);
+            openToolStripMenuItem.Size = new Size(122, 22);
             openToolStripMenuItem.Text = "Відкрити";
             openToolStripMenuItem.Click += openToolStripMenuItem_Click;
             // 
             // closeToolStripMenuItem
             // 
             closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            closeToolStripMenuItem.Size = new Size(180, 22);
+            closeToolStripMenuItem.Size = new Size(122, 22);
             closeToolStripMenuItem.Text = "Закрити";
             closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
             // 
@@ -132,7 +132,7 @@
             materialLabel2.Name = "materialLabel2";
             materialLabel2.Size = new Size(1037, 526);
             materialLabel2.TabIndex = 0;
-            materialLabel2.Text = "Упс... а ця фіча ще в розробці\r\n\r\n(╮°-°)╮┳━━┳ (╯°□°)╯ ┻━━┻";
+            materialLabel2.Text = "Упс... ця фіча ще в розробці\r\n\r\n(╮°-°)╮┳━━┳ (╯°□°)╯ ┻━━┻";
             materialLabel2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // dateBackButton
